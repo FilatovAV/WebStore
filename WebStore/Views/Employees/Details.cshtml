@@ -1,0 +1,31 @@
+﻿@model WebStore.Models.Employee
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Страница Index</title>
+</head>
+
+<body>
+    <h3>Карточка сотрудника</h3>
+
+    <div>
+        <p>Фамилия:</p>
+        <p>@Model.SurName</p>
+        <p>Имя:</p>
+        <p>@Model.FirstName</p>
+        <p>Отчество:</p>
+        <p>@Model.Patronymic</p>
+        <p>Возраст:</p>
+        <p>@Model.Age</p>
+    </div>
+
+    <hr />
+    @*<a href="~/Employees">Управление сотрудниками</a>*@
+    <a asp-controller="Employees" asp-action="Index">К списку сотрудников</a>
+
+</body>
+
+</html>
