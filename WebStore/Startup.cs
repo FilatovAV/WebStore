@@ -35,14 +35,6 @@ namespace WebStore
 
             app.UseStaticFiles();
 
-            //var response = Configuration["CustomClientResponse"];
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync(response);
-            //});
-
-
             //Данная строчка должна быть заключительной в этом файле, все что после работать не будет
             app.UseMvc( route => {
                 route.MapRoute(
