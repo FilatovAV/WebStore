@@ -1,27 +1,18 @@
 ﻿@model IEnumerable<WebStore.Models.Employee>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" charset="utf-8" />
-    <title>Страница Index</title>
-</head>
-
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Возраст</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>@item.Id</td>
                 <td>@item.SurName</td>
@@ -31,9 +22,6 @@
                 <td><a asp-controller="Employees" asp-action="Details" asp-route-id="@item.Id">Детали</a></td>
 
             </tr>
-            }
-        </tbody>
-    </table>
-</body>
-
-</html>
+        }
+    </tbody>
+</table>
