@@ -1,7 +1,16 @@
-﻿@{ 
+﻿@{
     Layout = "_LayoutBase";
 }
 
 <div class="container">
     @RenderBody()
 </div>
+
+
+@section Styles{
+    @RenderSection("Styles", false)
+}
+
+@section Scripts {
+    @RenderSection("Scrypts", false)
+}
