@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.Controllers.Implementations;
+using WebStore.Controllers.Interfaces;
 
 namespace WebStore
 {
@@ -22,6 +24,7 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddMvc();
 
             //подключение фильтров
@@ -29,13 +32,13 @@ namespace WebStore
             //    f.Filters.Add<ActionFilter>();
             //});
 
-            services.AddMvc(opt =>
-            {
-                //подключение фильтров
-                //opt.Filters.Add<ActionFilter>();
-                //подключение соглашений
-                //opt.Conventions.Add(new Infrastructure.Conventions.TestConvention());
-            });
+            //services.AddMvc(opt =>
+            //{
+            //    //подключение фильтров
+            //    //opt.Filters.Add<ActionFilter>();
+            //    //подключение соглашений
+            //    //opt.Conventions.Add(new Infrastructure.Conventions.TestConvention());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
