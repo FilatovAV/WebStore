@@ -9,7 +9,7 @@ namespace WebStore.Controllers.Implementations
 {
     public class InMemoryEmployeesData : IEmployeesData
     {
-        private List<Employee> employees = new List<Employee>()
+        private readonly List<Employee> employees = new List<Employee>()
         {
             new Employee
             {
