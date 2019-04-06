@@ -30,7 +30,54 @@ namespace WebStore.Controllers
             }
 
             return View(employee);
+        }
+        public IActionResult Edit(int? id)
+        {
+            Employee employee;
+            if (id != null)
+            {
+                employee = employeesData.GetById((int)id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                employee = new Employee();
+            }
 
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee);
+            }
+            else if(employee.Id > 0)
+            {
+                var db_employee = employeesData.GetById(employee.Id);
+                if (db_employee is null)
+                {
+                    return NotFound();
+                }
+                db_employee.FirstName = employee.FirstName;
+                db_employee.Name = employee.Name;
+                db_employee.Patronymic = employee.Patronymic;
+                db_employee.SurName = employee.Patronymic;
+                db_employee.Age = employee.Age;
+            } else
+            {
+                employeesData.AddNew(employee);
+                
+            }
+
+            employeesData.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
