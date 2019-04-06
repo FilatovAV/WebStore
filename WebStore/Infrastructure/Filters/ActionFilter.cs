@@ -1,20 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebStore
 {
-    class ActionFilter : IActionFilter
+    internal class ActionFilter : IActionFilter
     {
-        void IActionFilter.OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
         {
             throw new NotImplementedException();
         }
 
-        void IActionFilter.OnActionExecuting(ActionExecutingContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
             throw new NotImplementedException();
         }
     }
 
+    internal class ActionFilterAsync : IAsyncActionFilter
+    {
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            //обработка context перед началом дальнейших действий
 
+            var next_task = next();
+
+            //набор действий выполняемых парралельно
+
+            await next_task;
+
+            //обработка результата
+
+            await next();
+        }
+    }
 }
