@@ -24,11 +24,18 @@ namespace WebStore
         {
             services.AddMvc();
 
-
             //подключение фильтров
             //services.AddMvc(f => {
             //    f.Filters.Add<ActionFilter>();
             //});
+
+            services.AddMvc(opt =>
+            {
+                //подключение фильтров
+                //opt.Filters.Add<ActionFilter>();
+                //подключение соглашений
+                //opt.Conventions.Add(new Infrastructure.Conventions.TestConvention());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,12 +48,23 @@ namespace WebStore
 
             app.UseStaticFiles();
 
+            //Можно задать маршрут по умолчанию
+            //app.UseMvcWithDefaultRoute();
+
             //Данная строчка должна быть заключительной в этом файле, все что после работать не будет
             app.UseMvc( route => {
                 route.MapRoute(
-                    name:"default",
-                    template:"{controller=Home}/{action=Index}/{id?}");
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");//,
+                    //defaults: new
+                    //{
+                    //    controller = "Home",
+                    //    action = "Index",
+                    //    id = (int?)null
+                    //}
             });
+
+            //ниже ничего не произойдет, UseMVC терминальный вызов
         }
     }
 }
