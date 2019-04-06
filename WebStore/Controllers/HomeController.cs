@@ -8,6 +8,7 @@ namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
+        //[ActionFilterAsync]
         public IActionResult Index() => View();
         public IActionResult NotFound() => View();
         public IActionResult Blog() => View();
