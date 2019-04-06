@@ -62,7 +62,10 @@ namespace WebStore.Controllers.Implementations
             employees.Remove(employee);
         }
 
-        public IEnumerable<Employee> GetAll() => employees;
+        public IEnumerable<Employee> GetAll()
+        {
+            return employees;
+        } 
 
         public Employee GetById(int id) => employees.FirstOrDefault(f => f.Id == id);
 

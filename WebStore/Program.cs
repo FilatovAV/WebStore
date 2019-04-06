@@ -21,6 +21,4 @@ namespace WebStore
                 //.UseUrls("http://0.0.0.0:0000") //Добавить на прослушку порт
                 .UseStartup<Startup>();
     }
-
-
 }

@@ -18,7 +18,7 @@ namespace WebStore.Controllers
         }
         public IActionResult Index()
         {
-            return View(employeesData);
+            return View(employeesData.GetAll());
         }
         public IActionResult Details(int id)
         {
