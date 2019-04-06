@@ -12,6 +12,7 @@ namespace WebStore.Controllers.Interfaces
         Employee GetById(int id);
         void AddNew(Employee employee);
         void Delete(Employee employee);
+        void Delete(int id);
         void SaveChanges();
     }
 }
