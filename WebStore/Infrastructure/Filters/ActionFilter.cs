@@ -18,7 +18,7 @@ namespace WebStore
     }
 
     //internal class ActionFilterAsync : Attribute, IAsyncActionFilter
-    internal class ActionFilterAsync : Attribute, IAsyncActionFilter
+    internal class ActionFilterAsync : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
