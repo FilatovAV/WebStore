@@ -13,7 +13,7 @@ namespace WebStore.Controllers.Implementations
         {
             new Employee
             {
-                Id = 0,
+                Id = 1,
                 FirstName = "Геннадий",
                 SurName = "Воржев",
                 Patronymic = "Степанович",
@@ -21,7 +21,7 @@ namespace WebStore.Controllers.Implementations
             },
             new Employee
             {
-                Id = 1,
+                Id = 2,
                 FirstName = "Алексей",
                 SurName = "Рахманин",
                 Patronymic = "Викторович",
@@ -29,7 +29,7 @@ namespace WebStore.Controllers.Implementations
             },
             new Employee
             {
-                Id = 2,
+                Id = 3,
                 FirstName = "Степан",
                 SurName = "Войтенков",
                 Patronymic = "Денисович",

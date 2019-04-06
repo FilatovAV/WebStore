@@ -65,9 +65,8 @@ namespace WebStore.Controllers
                     return NotFound();
                 }
                 db_employee.FirstName = employee.FirstName;
-                db_employee.Name = employee.Name;
                 db_employee.Patronymic = employee.Patronymic;
-                db_employee.SurName = employee.Patronymic;
+                db_employee.SurName = employee.SurName;
                 db_employee.Age = employee.Age;
             } else
             {
