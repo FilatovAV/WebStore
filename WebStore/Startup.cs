@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Controllers.Implementations;
 using WebStore.Controllers.Interfaces;
+using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
 {
@@ -25,6 +27,8 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddSingleton<IProductData, InMemoryProductsData>();
+
             services.AddMvc();
 
             //подключение фильтров
