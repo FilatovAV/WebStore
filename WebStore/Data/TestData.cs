@@ -52,7 +52,7 @@ namespace WebStore.Data
             new Brand { Id = 7, Name = "Rosch creative culture", Order = 6 },
         };
 
-        public static List<Product> Products { get; } = new List<Product>
+        public static IEnumerable<Product> Products { get; } = new List<Product>
         {
             new Product { Id = 1, Name = "Easy Polo Black Edition 1", Price = 1025, ImageUrl = "product1.jpg", Order = 0, SectionId = 2, BrandId = 1 },
             new Product { Id = 2, Name = "Easy Polo Black Edition 2", Price = 1025, ImageUrl = "product2.jpg", Order = 1, SectionId = 2, BrandId = 1 },
@@ -67,6 +67,5 @@ namespace WebStore.Data
             new Product { Id = 11, Name = "Easy Polo Black Edition 11", Price = 1025, ImageUrl = "product11.jpg", Order = 10, SectionId = 25, BrandId = 3 },
             new Product { Id = 12, Name = "Easy Polo Black Edition 12", Price = 1025, ImageUrl = "product12.jpg", Order = 11, SectionId = 25, BrandId = 3 },
         };
-    };
     }
 }
