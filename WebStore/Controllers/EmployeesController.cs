@@ -53,6 +53,23 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Edit(Employee employee)
         {
+            //Валидация модели данных
+            if (employee.Age < 6)
+            {
+                ModelState.AddModelError("Age", "Возраст должен быть более 6 лет");
+            } else if (employee.Age > 120)
+            {
+                ModelState.AddModelError("Age", "Сомнительный возраст");
+            }
+
+            if (employee.Age == 66)
+            {
+                //Если мы не укажим ключ то ошибка будет привязана к валидации всей формы
+                //<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                ModelState.AddModelError("", "Проверка возраста 66");
+            }
+
+
             if (!ModelState.IsValid)
             {
                 return View(employee);
