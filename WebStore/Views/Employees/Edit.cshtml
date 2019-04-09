@@ -27,7 +27,7 @@
                 <input asp-for="SurName" class="form-control" />
                 <span asp-validation-for="SurName" class="text-danger"></span>
                 @* Валидация с применением Html хелпера для отдельного поля
-                @*@Html.ValidationMessageFor(m => m.SurName, "Ошибка!", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(m => m.SurName, "Ошибка!", new { @class = "text-danger" })*@
             </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
