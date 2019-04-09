@@ -19,11 +19,14 @@ namespace WebStore.Models
 
         //Проверка на наличие данных и указываем какое сообщение должно быть выведено на экран
         [Display(Name = "Surname"), Required(ErrorMessage = "Поле является обязательным для заполнения")] 
-        [MinLength(3)] //Ограничение по длине поля
+        //[MinLength(3)] //Ограничение по длине поля
+        //Проверим с помощью регулярного выражения на длину данных, сочетание русских и английских букв, заглавную букву в начале
+        [RegularExpression(@"(^[А-Я][а-я]{2,150}$)|(^[A-Z][a-z]{2,150}$)", ErrorMessage = "Некорректный формат имени")]
         public string SurName { get; set; }
 
         [Display(Name = "First name"), Required]
-        [MinLength(2)]
+        //[MinLength(2)]
+        [RegularExpression(@"(^[А-Я][а-я]{2,150}$)|(^[A-Z][a-z]{2,150}$)", ErrorMessage = "Некорректный формат фамилии")]
         public string FirstName { get; set; }
 
         [Display(Name = "Patronymic")]
