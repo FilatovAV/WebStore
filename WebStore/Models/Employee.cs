@@ -33,6 +33,7 @@ namespace WebStore.Models
         public string Patronymic { get; set; }
 
         [Display(Name = "Age")]
+        //[Range(18,130)] ограничение по диапазону
         public int Age { get; set; }
     }
 }
