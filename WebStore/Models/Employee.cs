@@ -30,6 +30,7 @@ namespace WebStore.Models
         public string FirstName { get; set; }
 
         [Display(Name = "Patronymic")]
+        [RegularExpression(@"(^[А-Я][а-я]{2,150}$)|(^[A-Z][a-z]{2,150}$)", ErrorMessage = "Некорректный формат фамилии")]
         public string Patronymic { get; set; }
 
         [Display(Name = "Age")]
