@@ -17,5 +17,18 @@ namespace WebStore.DAL.Context
         {
 
         }
+
+
+        //FluentAPI
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    //Отношение один ко многим с указанием внешнего ключа
+        //    modelBuilder.Entity<Section>()
+        //        .HasMany(section => section.Products)
+        //        .WithOne(product => product.Section)
+        //        .HasForeignKey(product => product.SectionId);
+        //}
     }
 }
