@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Map;
 using WebStore.ViewModels;
 
 namespace WebStore.Components
@@ -26,12 +27,13 @@ namespace WebStore.Components
         private IEnumerable<BrandViewModel> GetBrands()
         {
             var brands = _productData.GetBrands();
-            return brands.Select(b => new BrandViewModel()
-            {
-                 Id = b.Id,
-                 Name = b.Name,
-                 Order = b.Order
-            });
+            return brands.Select(b => b.CreateViewModel());
+            //return brands.Select(b => new BrandViewModel()
+            //{
+            //    Id = b.Id,
+            //    Name = b.Name,
+            //    Order = b.Order
+            //});
         }
     }
 }
