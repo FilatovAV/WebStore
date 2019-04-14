@@ -12,7 +12,7 @@ namespace WebStore.DAL.Context
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Section> Sections { get; set; }
 
-        WebStoreContext(DbContextOptions<WebStoreContext> options)
+        public WebStoreContext(DbContextOptions<WebStoreContext> options)
             :base(options)
         {
 
