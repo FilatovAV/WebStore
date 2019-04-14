@@ -11,13 +11,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordian" href="#@item.Name">
+                        <a data-toggle="collapse" data-parent="#accordian" href="#@item.Id">
                             <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                             @item.Name
                         </a>
                     </h4>
                 </div>
-                <div id="@item.Name" class="panel-collapse collapse">
+                <div id="@item.Id" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
                             @foreach (var item_child in item.ChildSections)
