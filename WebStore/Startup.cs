@@ -33,7 +33,7 @@ namespace WebStore
             services.AddTransient<WebStoreContextInitializer>();
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddSingleton<IProductData, InMemoryProductsData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             services.AddMvc();
 
