@@ -39,7 +39,7 @@ namespace WebStore.Data
             new Section{ Id = 27, Name = "Interiors", Order = 6 },
             new Section{ Id = 28, Name = "Clothing", Order = 7 },
             new Section{ Id = 29, Name = "Bags", Order = 8 },
-            new Section{ Id = 20, Name = "Shoes", Order = 9 }
+            new Section{ Id = 30, Name = "Shoes", Order = 9 }
         };
         /// <summary>Бренды</summary>
         public static List<Brand> Brands { get; } = new List<Brand> {
