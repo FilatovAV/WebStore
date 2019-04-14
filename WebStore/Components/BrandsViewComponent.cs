@@ -27,7 +27,7 @@ namespace WebStore.Components
         private IEnumerable<BrandViewModel> GetBrands()
         {
             var brands = _productData.GetBrands();
-            return brands.Select(b => b.CreateViewModel());
+            return brands.Select(BrandViewModelMapper.CreateViewModel);
             //return brands.Select(b => new BrandViewModel()
             //{
             //    Id = b.Id,

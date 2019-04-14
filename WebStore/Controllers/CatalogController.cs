@@ -28,7 +28,7 @@ namespace WebStore.Controllers
             {
                 BrandId = BrandId,
                 SectionId = SectionId,
-                Products = products.Select(p => p.CreateViewModel())
+                Products = products.Select(ProductViewModelMapper.CreateViewModel)
                 //Products = products.Select(p => new ProductViewModel {
                 //    Id = p.Id,
                 //    Name = p.Name,

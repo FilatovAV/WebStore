@@ -27,31 +27,19 @@ namespace WebStore.Components
         //public async Task<IViewComponentResult> InvokeAsync()
         //{ }
 
-
         private IEnumerable<SectionViewModel> GetSections()
         {
             var sections = _productData.GetSections();
 
             var parent_sections = sections
                 .Where(s => s.ParentId == null)
-                .Select(s => s.CreateViewModel()).ToList();
-            //.Select(s => new SectionViewModel
-            //{
-            //    Id = s.Id,
-            //    Name = s.Name,
-            //    Order = s.Order
-            //}).ToList();
+                .Select(SectionViewModelMapper.CreateViewModel).ToList();
 
             foreach (var item in parent_sections)
             {
                 var child_sections = sections
                     .Where(s => s.ParentId == item.Id)
-                    .Select(s => s.CreateViewModel());
-                //.Select(s => new SectionViewModel {
-                //    Id = s.Id,
-                //    Name = s.Name,
-                //    Order = s.Order
-                //});
+                    .Select(SectionViewModelMapper.CreateViewModel);
 
                 item.ChildSections.AddRange(child_sections);
                 item.ChildSections.Sort((a, b) => Comparer<int>.Default.Compare(a.Order, b.Order));
