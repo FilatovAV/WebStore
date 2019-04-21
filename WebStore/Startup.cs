@@ -73,7 +73,7 @@ namespace WebStore
                 cfg.Cookie.MaxAge = TimeSpan.FromDays(150);
 
                 cfg.LoginPath = "/Account/Login";
-                cfg.LogoutPath = "/Account/Log";
+                cfg.LogoutPath = "/Account/Logout";
                 cfg.AccessDeniedPath = "/Account/AccessDenied";
 
                 //пользователю который прошел афторизацию будет сменен номер сеанса (для повышения безопасности)
