@@ -21,7 +21,7 @@ namespace WebStore.Models
         [Display(Name = "Surname"), Required(ErrorMessage = "Поле является обязательным для заполнения")] 
         //[MinLength(3)] //Ограничение по длине поля
         //Проверим с помощью регулярного выражения на длину данных, сочетание русских и английских букв, заглавную букву в начале
-        [RegularExpression(@"(^[А-Я][а-я]{2,150}$)|(^[A-Z][a-z]{2,150}$)", ErrorMessage = "Некорректный формат имени")]
+        [RegularExpression(@"(^[А-ЯЁ][а-яё]{2,150}$)|(^[A-Z][a-z]{2,150}$)", ErrorMessage = "Некорректный формат имени")]
         public string SurName { get; set; }
 
         [Display(Name = "First name"), Required]

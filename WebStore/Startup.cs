@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ using WebStore.Data;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Models;
 
 namespace WebStore
 {
@@ -98,6 +100,16 @@ namespace WebStore
             //    //opt.Filters.Add<ActionFilter>();
             //    //подключение соглашений
             //    //opt.Conventions.Add(new Infrastructure.Conventions.TestConvention());
+            //});
+
+            services.AddAutoMapper(opt =>
+            {
+                opt.CreateMap<Employee, Employee>();
+            });
+
+            //AutoMapper.Mapper.Initialize(opt =>
+            //{
+            //    opt.CreateMap<Employee, Employee>();
             //});
         }
 

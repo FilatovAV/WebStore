@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Controllers.Interfaces;
 using WebStore.Models;
@@ -51,7 +52,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee employee)
+        public IActionResult Edit(Employee employee, [FromServices] IMapper mapper)
         {
             //Валидация модели данных
             if (employee.Age < 6)
@@ -81,10 +82,18 @@ namespace WebStore.Controllers
                 {
                     return NotFound();
                 }
-                db_employee.FirstName = employee.FirstName;
-                db_employee.Patronymic = employee.Patronymic;
-                db_employee.SurName = employee.SurName;
-                db_employee.Age = employee.Age;
+
+                //AutoMApper DependencyInjection
+                mapper.Map(employee, db_employee);
+
+                //обычный AutoMApper
+                //AutoMapper.Mapper.Map(employee, db_employee);
+
+                //раньше
+                //db_employee.FirstName = employee.FirstName;
+                //db_employee.Patronymic = employee.Patronymic;
+                //db_employee.SurName = employee.SurName;
+                //db_employee.Age = employee.Age;
             } else
             {
                 employeesData.AddNew(employee);
