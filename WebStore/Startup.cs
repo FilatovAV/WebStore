@@ -105,7 +105,7 @@ namespace WebStore
             services.AddAutoMapper(opt =>
             {
                 opt.CreateMap<Employee, Employee>();
-            });
+            }, typeof(Startup));
 
             //AutoMapper.Mapper.Initialize(opt =>
             //{
