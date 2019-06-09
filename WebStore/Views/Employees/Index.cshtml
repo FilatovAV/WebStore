@@ -6,11 +6,15 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th></th>
+            @if (User.IsInRole("Administrator"))
+            { <th></th> }
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
             <th>Возраст</th>
+            <th></th>
+            @if (User.IsInRole("Administrator"))
+            { <th></th> }
         </tr>
     </thead>
     <tbody>
@@ -18,13 +22,23 @@
         {
         <tr>
             <td>@item.Id</td>
-            <td><a asp-controller="Employees" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a></td>
+            @if (User.IsInRole("Administrator"))
+            {
+                <td><a asp-controller="Employees" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a></td>
+            }
             <td>@item.SurName</td>
             <td>@item.FirstName</td>
             <td>@item.Patronymic</td>
             <td>@item.Age</td>
             <td><a asp-controller="Employees" asp-action="Details" asp-route-id="@item.Id">Детали</a></td>
-            <td><a asp-controller="Employees" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-times text-danger"></i></a></td>
+            @if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    <a asp-controller="Employees" asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fa fa-times text-danger"></i>
+                    </a>
+                </td>
+            }
         </tr>
         }
     </tbody>

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Controllers.Interfaces;
 using WebStore.Models;
 
 namespace WebStore.Controllers
 {
+    //Требуем чтобы только залогиненый пользователь мог пользоваться этим контроллером
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData employeesData;
@@ -32,6 +35,7 @@ namespace WebStore.Controllers
 
             return View(employee);
         }
+        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
         public IActionResult Edit(int? id)
         {
             Employee employee;
@@ -52,6 +56,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
         public IActionResult Edit(Employee employee, [FromServices] IMapper mapper)
         {
             //Валидация модели данных
@@ -102,6 +107,18 @@ namespace WebStore.Controllers
 
             employeesData.SaveChanges();
 
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
+        public IActionResult Delete(int Id)
+        {
+            var employee = employeesData.GetById(Id);
+            if (employee is null)
+            {
+                return NotFound();
+            }
+            employeesData.Delete(employee);
             return RedirectToAction("Index");
         }
     }

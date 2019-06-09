@@ -38,6 +38,7 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<ICartService, CookieCartService>();
 
             //Система идентификации пользователей
             //-----------------------------------------------------------------
