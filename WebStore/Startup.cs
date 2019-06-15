@@ -136,6 +136,12 @@ namespace WebStore
 
             //Данная строчка должна быть заключительной в этом файле, все что после работать не будет
             app.UseMvc( route => {
+
+                route.MapRoute(
+                name: "areas",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 route.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");//,
