@@ -9,7 +9,7 @@ namespace WebStore.Infrastructure.Interfaces
 {
     public interface IOrderService
     {
-        IEnumerable<Order> GetUserOrders(User user);
+        IEnumerable<Order> GetUserOrders(string userName);
         Order GetOrderById(int id);
         Order CreateOrder(OrderViewModel OrderViewModel, CartViewModel CartViewModel, string UserName);
     }
