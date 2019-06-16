@@ -18,11 +18,6 @@
       "destination": "wwwroot/font-awesome/"
     },
     {
-      "provider": "cdnjs",
-      "library": "twitter-bootstrap@3.3.7",
-      "destination": "wwwroot/bootstrap/"
-    },
-    {
       "library": "jquery-validation-unobtrusive@3.2.11",
       "destination": "wwwroot/jquery-validation-unobtrusive/"
     },
@@ -36,6 +31,10 @@
         "jquery.validate.js",
         "localization/messages_ru.min.js"
       ]
+    },
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "wwwroot/lib/twitter-bootstrap/"
     }
   ]
 }
