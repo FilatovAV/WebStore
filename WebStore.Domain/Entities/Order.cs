@@ -9,6 +9,7 @@ namespace WebStore.Domain.Entities
     {
         public virtual User User { get; set; }
         public virtual string Phone { get; set; }
+        public virtual string Address { get; set; }
         public DateTime Date { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
