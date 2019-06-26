@@ -123,6 +123,9 @@ namespace WebStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //Соединение с браузером для обновления
+                //Microsoft.VisualStudio.Web.BrowserLink
+                app.UseBrowserLink();
             }
 
             //JS/CSS
