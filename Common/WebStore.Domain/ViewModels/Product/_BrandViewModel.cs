@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.ViewModels.Product
+namespace WebStore.ViewModels
 {
-    public class BrandViewModel
+    public class BrandViewModel : INamedEntity, IOrderedEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

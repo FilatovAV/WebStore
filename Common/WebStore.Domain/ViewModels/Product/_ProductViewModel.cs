@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.ViewModels.Product
+namespace WebStore.ViewModels
 {
     public class ProductViewModel : INamedEntity, IOrderedEntity
     {
@@ -13,5 +14,13 @@ namespace WebStore.Domain.ViewModels.Product
         public string ImageUrl { get; set; }
         public decimal Price { get; set; }
         public string Brand { get; set; }
+
+    }
+
+    public class CatalogViewModel
+    {
+        public int? BrandId { get; set; }
+        public int? SectionId { get; set; }
+        public IEnumerable<ProductViewModel> Products { get; set; }
     }
 }
