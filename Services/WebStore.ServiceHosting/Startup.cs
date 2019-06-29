@@ -33,6 +33,8 @@ namespace WebStore.ServiceHosting
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //Страница ошибок базы данных
+                app.UseDatabaseErrorPage();
             }
 
             app.UseMvc();

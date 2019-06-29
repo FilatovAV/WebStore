@@ -15,6 +15,8 @@ namespace WebStore.Clients.Base
         {
             _ServiceAddress = serviceAddress;
 
+            //Должно полностью совпадать с appsettings.json в главном проекте (WebStore/appsettings.json)
+            //"ClientAddress": "http://localhost:5001", адрес указывается в WebStore.ServiceHosting/Debug/App URL
             _Client = new HttpClient { BaseAddress = new Uri(configuration["ClientAddress"]) };
             _Client.DefaultRequestHeaders.Accept.Clear();
             //Указываем клиенту что бы он отправлял сервису заголовок что он ожидает обратно данные в формате json
