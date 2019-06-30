@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.Clients.Values;
 using WebStore.Controllers.Implementations;
 using WebStore.Controllers.Interfaces;
 using WebStore.DAL.Context;
@@ -17,6 +18,7 @@ using WebStore.Data;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.interfaces.Api;
 using WebStore.Models;
 
 namespace WebStore
@@ -40,6 +42,9 @@ namespace WebStore
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookieCartService>();
             services.AddScoped<IOrderService, SqlOrdersService>();
+
+            //Регистрируем тестовое Web API
+            services.AddTransient<IValuesService, ValuesClient>();
 
             //Система идентификации пользователей
             //-----------------------------------------------------------------
