@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Primitives;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace WebStore.Clients.Base
 {
@@ -24,8 +27,37 @@ namespace WebStore.Clients.Base
 
         }
 
-        protected BaseClient()
+        //CancellationToken - возможность отмены асинхронной операции
+        //Тип данных с которыми работает метод Get имеет конструктор по умолчанию, 
+        //чтобы в случае чего мы могли вернуть значения по умолчанию - where T: new()
+        protected async Task<T> GetAsync<T>(string url, CancellationToken Cancel = default) where T: new()
         {
+            var response = await _Client.GetAsync(url, Cancel);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<T>(Cancel);
+            }
+            return new T();
+        }
+        protected T Get<T>(string url) where T: new() => GetAsync<T>(url).Result;
+
+        protected async Task<HttpResponseMessage> PostAsync<T>(string url, T item, CancellationToken Cancel = default)
+        {
+            return (await _Client.PostAsJsonAsync(url, item, Cancel)).EnsureSuccessStatusCode();
+        }
+        protected HttpResponseMessage Post(string url, Task item, CancellationToken Cancel = default) => PostAsync(url, item).Result;
+
+        protected async Task<HttpResponseMessage> PutAsync<T>(string url, T item, CancellationToken Cancel = default)
+        {
+            return (await _Client.PutAsJsonAsync(url, item, Cancel)).EnsureSuccessStatusCode();
+        }
+        protected HttpResponseMessage Put(string url, Task item, CancellationToken Cancel = default) => PutAsync(url, item).Result;
+
+        protected async Task<HttpResponseMessage> DeleteAsync<T>(string url, CancellationToken Cancel = default)
+        {
+            return (await _Client.DeleteAsync(url, Cancel));
+        }
+        protected HttpResponseMessage Delete<T>(string url, CancellationToken Cancel = default) => _Client.DeleteAsync(url, Cancel).Result;
         }
     }
 }

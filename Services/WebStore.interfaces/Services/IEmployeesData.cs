@@ -15,6 +15,8 @@ namespace WebStore.Controllers.Interfaces
         Employee GetById(int id);
         /// <summary>Добавить сотрудника</summary>
         void AddNew(Employee employee);
+        /// <summary> Изменить данные по сотруднику</summary>
+        Employee Update(int id, Employee employee);
         /// <summary>Удалить сотрудника</summary>
         void Delete(Employee employee);
         /// <summary>Удалить сотрудника по Id</summary>

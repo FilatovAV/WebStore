@@ -73,5 +73,27 @@ namespace WebStore.Controllers.Implementations
         {
             //throw new NotImplementedException();
         }
+
+        public Employee Update(int id, Employee employee)
+        {
+            if (employee is null)
+            {
+                throw new ArgumentException(nameof(employee));
+            }
+
+            var db_employee = GetById(id);
+
+            if (db_employee is null)
+            {
+                throw new InvalidOperationException($"Employee with id {id}, not found!");
+            }
+
+            db_employee.FirstName = employee.FirstName;
+            db_employee.SurName = employee.SurName;
+            db_employee.Patronymic = employee.Patronymic;
+            db_employee.Age = employee.Age;
+
+            return db_employee;
+        }
     }
 }
