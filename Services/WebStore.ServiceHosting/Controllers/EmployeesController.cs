@@ -26,7 +26,7 @@ namespace WebStore.ServiceHosting.Controllers
         [HttpDelete]
         public void Delete([FromBody]Employee employee)
         {
-            _emplyeesData.Delete(employee);
+            _emplyeesData.Delete(employee.Id);
         }
         //Выполнять логирование можно следующим образом
         //[HttpDelete("{id}")]

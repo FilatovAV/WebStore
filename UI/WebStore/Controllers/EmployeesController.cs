@@ -118,7 +118,7 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-            employeesData.Delete(employee);
+            employeesData.Delete(employee.Id);
             return RedirectToAction("Index");
         }
     }
