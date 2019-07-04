@@ -45,19 +45,18 @@ namespace WebStore.Clients.Base
         {
             return (await _Client.PostAsJsonAsync(url, item, Cancel)).EnsureSuccessStatusCode();
         }
-        protected HttpResponseMessage Post(string url, Task item, CancellationToken Cancel = default) => PostAsync(url, item).Result;
+        protected HttpResponseMessage Post<T>(string url, T item) => PostAsync(url, item).Result;
 
         protected async Task<HttpResponseMessage> PutAsync<T>(string url, T item, CancellationToken Cancel = default)
         {
             return (await _Client.PutAsJsonAsync(url, item, Cancel)).EnsureSuccessStatusCode();
         }
-        protected HttpResponseMessage Put(string url, Task item, CancellationToken Cancel = default) => PutAsync(url, item).Result;
+        protected HttpResponseMessage Put<T>(string url, T item) => PutAsync(url, item).Result;
 
         protected async Task<HttpResponseMessage> DeleteAsync<T>(string url, CancellationToken Cancel = default)
         {
             return (await _Client.DeleteAsync(url, Cancel));
         }
-        protected HttpResponseMessage Delete<T>(string url, CancellationToken Cancel = default) => _Client.DeleteAsync(url, Cancel).Result;
-        }
+        protected HttpResponseMessage Delete(string url) => _Client.DeleteAsync(url).Result;
     }
 }

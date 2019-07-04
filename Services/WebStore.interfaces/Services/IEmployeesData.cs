@@ -18,7 +18,7 @@ namespace WebStore.Controllers.Interfaces
         /// <summary> Изменить данные по сотруднику</summary>
         Employee Update(int id, Employee employee);
         /// <summary>Удалить сотрудника</summary>
-        void Delete(Employee employee);
+        //void Delete(Employee employee);
         /// <summary>Удалить сотрудника по Id</summary>
         void Delete(int id);
         /// <summary>Сохранить изменения</summary>
