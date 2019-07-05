@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<WebStore.Domain.Entities.Product>
+﻿@model  IEnumerable<WebStore.Domain.DTO.Product.ProductDTO>
 @{
     ViewData["Title"] = "Product list";
 }
@@ -13,8 +13,8 @@
             <td>@Html.DisplayNameFor(m => m.Id)</td>
             <td>@Html.DisplayNameFor(m => m.Name)</td>
             <td>@Html.DisplayNameFor(m => m.Order)</td>
-            <td>@Html.DisplayNameFor(m => m.SectionId)</td>
-            <td>@Html.DisplayNameFor(m => m.BrandId)</td>
+            @*<td>@Html.DisplayNameFor(m => m.SectionId)</td>*@
+            @*<td>@Html.DisplayNameFor(m => m.BrandId)</td>*@
             <td>@Html.DisplayNameFor(m => m.ImageUrl)</td>
             <td>@Html.DisplayNameFor(m => m.Price)</td>
             <td></td>
@@ -27,8 +27,8 @@
             <td>@Html.DisplayFor(m => item.Id)</td>
             <td>@Html.DisplayFor(m => item.Name)</td>
             <td>@Html.DisplayFor(m => item.Order)</td>
-            <td>@Html.DisplayFor(m => item.SectionId)</td>
-            <td>@Html.DisplayFor(m => item.BrandId)</td>
+            @*<td>@Html.DisplayFor(m => item.SectionId)</td>*@
+            @*<td>@Html.DisplayFor(m => item.BrandId)</td>*@
             <td>@Html.DisplayFor(m => item.ImageUrl)</td>
             <td>@Html.DisplayFor(m => item.Price)</td>
             <td>
