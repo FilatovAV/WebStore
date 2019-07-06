@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.DAL.Context;
+using WebStore.Domain.DTO.Order;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Implementations
 {
@@ -21,7 +21,7 @@ namespace WebStore.Infrastructure.Implementations
             this._db = db;
             this._userManager = userManager;
         }
-        public Order CreateOrder(OrderViewModel OrderModel, CartViewModel CartModel, string UserName)
+        public Order CreateOrder(CreateOrderModel OrderModel, string UserName)
         {
             var user = _userManager.FindByNameAsync(UserName).Result;
 
@@ -29,19 +29,22 @@ namespace WebStore.Infrastructure.Implementations
             {
                 var order = new Order()
                 {
-                    Name = OrderModel.Name,
-                    Address = OrderModel.Address,
-                    Phone = OrderModel.Phone,
+                    Name = OrderModel.OrderViewModel.Name,
+                    Address = OrderModel.OrderViewModel.Address,
+                    Phone = OrderModel.OrderViewModel.Phone,
                     User = user,
                     Date = DateTime.Now
                 };
 
                 _db.Orders.Add(order);
 
-                foreach (var item in CartModel.Items)
+                foreach (var item in OrderModel.OrderItems)
                 {
-                    var product_model = item.Key;
-                    var quantity = item.Value;
+                    var product_model = _db.Products.FirstOrDefault(p => p.Id == item.Id);
+                    if (product_model is null)
+                    {
+                        throw new InvalidOperationException($"Product OrderModel.OrderItems.Id {item.Id} in the database is not found!");
+                    }
                     var product = _db.Products.FirstOrDefault(p => p.Id == product_model.Id);
                     if (product is null)
                     {
@@ -51,7 +54,7 @@ namespace WebStore.Infrastructure.Implementations
                     {
                         Order = order,
                         Price = product.Price,
-                        Quantity = quantity,
+                        Quantity = item.Quantity,
                         Product = product
                     };
 

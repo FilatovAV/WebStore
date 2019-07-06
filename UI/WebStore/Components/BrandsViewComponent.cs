@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebStore.Domain.ViewModels.Product;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Map;
-using WebStore.ViewModels;
+
 
 namespace WebStore.Components
 {

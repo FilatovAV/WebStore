@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebStore.Domain.ViewModels.Cart;
+using WebStore.Domain.ViewModels.Product;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
-using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Implementations
 {
@@ -139,6 +140,11 @@ namespace WebStore.Infrastructure.Implementations
                     x => x.Quantity)
             };
             return cart_view_model;
+        }
+
+        CartViewModel ICartService.TransfomCart()
+        {
+            throw new NotImplementedException();
         }
     }
 }
