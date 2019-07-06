@@ -13,8 +13,7 @@ namespace WebStore.Clients.Products
     public class ProductsClient : BaseClient, IProductData
     {
         public ProductsClient(IConfiguration configuration) : base(configuration, "api/products")
-        {
-        }
+        { }
 
         public IEnumerable<Brand> GetBrands()
         {
@@ -28,7 +27,7 @@ namespace WebStore.Clients.Products
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
         {
-            var response = Post($"{_ServiceAddress}/products", filter);
+            var response = Post(_ServiceAddress, filter);
             return response.Content.ReadAsAsync<IEnumerable<ProductDTO>>().Result;
         }
 

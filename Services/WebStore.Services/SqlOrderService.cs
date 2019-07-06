@@ -21,7 +21,7 @@ namespace WebStore.Infrastructure.Implementations
             this._db = db;
             this._userManager = userManager;
         }
-        public Order CreateOrder(CreateOrderModel OrderModel, string UserName)
+        public OrderDTO CreateOrder(CreateOrderModel OrderModel, string UserName)
         {
             var user = _userManager.FindByNameAsync(UserName).Result;
 
@@ -63,21 +63,59 @@ namespace WebStore.Infrastructure.Implementations
                 _db.SaveChanges();
                 trans.Commit();
 
-                return order;
+                return new OrderDTO
+                {
+                    Id = order.Id,
+                    Address = order.Address,
+                    Phone = order.Phone,
+                    Date = order.Date,
+                    OrderItem = order.OrderItems
+                    .Select(i => new OrderItemDTO
+                    {
+                        Id = i.Id,
+                        Price = i.Price,
+                        Quantity = i.Quantity
+                    }).ToArray()
+                };
             }
         }
 
-        public Order GetOrderById(int id)
+        public OrderDTO GetOrderById(int id)
         {
-            return _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
+            var order = _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
+            return order is null ? null : new OrderDTO
+            {
+                Address = order.Address,
+                Phone = order.Phone,
+                Date = order.Date,
+                OrderItem = order.OrderItems
+                    .Select(i => new OrderItemDTO
+                        {
+                            Id = i.Id,
+                            Price = i.Price,
+                            Quantity = i.Quantity
+                        }).ToArray()
+            };
         }
 
-        public IEnumerable<Order> GetUserOrders(string userName)
+        public IEnumerable<OrderDTO> GetUserOrders(string userName)
         {
             return _db.Orders
                 .Include(i => i.User)
                 .Include(i => i.OrderItems)
                 .Where(i => i.User.UserName == userName)
+                .Select(o => new OrderDTO
+                {
+                    Address = o.Address,
+                    Phone = o.Phone,
+                    Date = o.Date,
+                    OrderItem = o.OrderItems.Select(i => new OrderItemDTO
+                        {
+                            Id = i.Id,
+                            Price = i.Price,
+                            Quantity = i.Quantity
+                        }).ToArray()
+                })
                 .ToArray();
         }
     }

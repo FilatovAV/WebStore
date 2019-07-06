@@ -9,8 +9,8 @@ namespace WebStore.Infrastructure.Interfaces
 {
     public interface IOrderService
     {
-        IEnumerable<Order> GetUserOrders(string userName);
-        Order GetOrderById(int id);
-        Order CreateOrder(CreateOrderModel OrderModel, string UserName);
+        IEnumerable<OrderDTO> GetUserOrders(string UserName);
+        OrderDTO GetOrderById(int id);
+        OrderDTO CreateOrder(CreateOrderModel OrderModel, string UserName);
     }
 }
