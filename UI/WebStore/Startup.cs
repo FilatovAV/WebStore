@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Products;
 using WebStore.Clients.Values;
 using WebStore.Controllers.Implementations;
 using WebStore.Controllers.Interfaces;
@@ -42,7 +43,9 @@ namespace WebStore
             //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddSingleton<IEmployeesData, EmplyeesClient>();
 
-            services.AddScoped<IProductData, SqlProductData>();
+            //services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<IProductData, ProductsClient>();
+
             services.AddScoped<ICartService, CookieCartService>();
             services.AddScoped<IOrderService, SqlOrdersService>();
 
