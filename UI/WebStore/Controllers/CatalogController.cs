@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels.Product;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Map;
@@ -19,9 +20,10 @@ namespace WebStore.Controllers
         }
         public IActionResult Shop(int? SectionId, int? BrandId)
         {
-            var products = _productData.GetProducts(new Domain.Entities.ProductFilter {
-                SectionId = SectionId
-                , BrandId = BrandId
+            var products = _productData.GetProducts(new ProductFilter
+            {
+                SectionId = SectionId,
+                BrandId = BrandId
             });
 
             var catalog_model = new CatalogViewModel
@@ -30,21 +32,14 @@ namespace WebStore.Controllers
                 SectionId = SectionId,
                 Products = products.
                 Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Brand = p.Brand?.Name,
-                    Order = p.Order,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl
-                })
-                //Products = products.Select(p => new ProductViewModel {
-                //    Id = p.Id,
-                //    Name = p.Name,
-                //    ImageUrl = p.ImageUrl,
-                //    Order = p.Order,
-                //    Price = p.Price }
-                // )
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Brand = p.Brand?.Name,
+                        Order = p.Order,
+                        Price = p.Price,
+                        ImageUrl = p.ImageUrl
+                    })
             };
 
             return View(catalog_model);
