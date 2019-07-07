@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
+using WebStore.Clients.Users;
 using WebStore.Clients.Values;
 using WebStore.Controllers.Implementations;
 using WebStore.Controllers.Interfaces;
@@ -38,8 +39,8 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<WebStoreContextInitializer>();
+            //services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddTransient<WebStoreContextInitializer>();
 
             //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddSingleton<IEmployeesData, EmplyeesClient>();
@@ -68,8 +69,26 @@ namespace WebStore
             //-----------------------------------------------------------------
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<WebStoreContext>()
+                //.AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
+
+            //-----------------------------------------------------------------
+            //Identity - своя реализация хранилища данных для системы Identity на основе Web API
+
+            services.AddTransient<IUserStore<User>, UserClient>();
+            services.AddTransient<IUserRoleStore<User>, UserClient>();
+            services.AddTransient<IUserClaimStore<User>, UserClient>();
+            services.AddTransient<IUserPasswordStore<User>, UserClient>();
+            services.AddTransient<IUserTwoFactorStore<User>, UserClient>();
+            services.AddTransient<IUserEmailStore<User>, UserClient>();
+            services.AddTransient<IUserPhoneNumberStore<User>, UserClient>();
+            services.AddTransient<IUserLoginStore<User>, UserClient>();
+            services.AddTransient<IUserLockoutStore<User>, UserClient>();
+
+            services.AddTransient<IRoleStore<IdentityRole>, RoleClient>();
+
+            //-----------------------------------------------------------------
+
 
             services.Configure<IdentityOptions>(cfg =>
             {
@@ -139,9 +158,9 @@ namespace WebStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, WebStoreContextInitializer db)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*, WebStoreContextInitializer db*/)
         {
-            db.InitializeAsync().Wait();
+            //db.InitializeAsync().Wait();
 
             if (env.IsDevelopment())
             {

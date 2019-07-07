@@ -18,7 +18,7 @@ namespace WebStore.ServiceHosting.Controllers
     {
         private readonly IProductData _productData;
 
-        ProductsController(IProductData productData)
+        public ProductsController(IProductData productData)
         {
             this._productData = productData;
         }
