@@ -15,6 +15,7 @@ using WebStore.Domain.Identity;
 
 namespace WebStore.ServiceHosting.Controllers
 {
+    /// <summary>Контроллер упралвения пользователями</summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]

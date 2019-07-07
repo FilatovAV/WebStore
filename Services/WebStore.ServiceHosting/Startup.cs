@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,11 +54,12 @@ namespace WebStore.ServiceHosting
 
             //Конфигурироем ПО для документации
             services.AddSwaggerGen(opt => 
-            { opt.SwaggerDoc(
-                "Ver1.0", 
-                new Info { Title = "WebStore.API", Version = "v1.0" }
-                );
-            });
+                {
+                    opt.SwaggerDoc( "Ver1.0", new Info { Title = "WebStore.API", Version = "v1.0" });
+                    var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xml_path = System.IO.Path.Combine(AppContext.BaseDirectory, xml_file);
+                    opt.IncludeXmlComments(xml_path);
+                });
         }
 
         //Прочие конфигурации приложения
