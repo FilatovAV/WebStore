@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 using WebStore.Controllers.Implementations;
 using WebStore.Controllers.Interfaces;
 using WebStore.DAL.Context;
@@ -49,6 +50,14 @@ namespace WebStore.ServiceHosting
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CookieCartService>();
+
+            //Конфигурироем ПО для документации
+            services.AddSwaggerGen(opt => 
+            { opt.SwaggerDoc(
+                "Ver1.0", 
+                new Info { Title = "WebStore.API", Version = "v1.0" }
+                );
+            });
         }
 
         //Прочие конфигурации приложения
@@ -62,6 +71,16 @@ namespace WebStore.ServiceHosting
                 //Страница ошибок базы данных
                 app.UseDatabaseErrorPage();
             }
+
+            //Конфигурация swagger
+            app.UseSwagger();
+            app.UseSwaggerUI( opt=> 
+            {
+                opt.SwaggerEndpoint("swagger/Ver1.0/swagger.json", "WebStore.API");
+                opt.RoutePrefix = String.Empty;
+            });
+            //------------------------------------------------------------------
+
 
             app.UseMvc();
         }
