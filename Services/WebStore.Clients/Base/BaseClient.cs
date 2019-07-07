@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace WebStore.Clients.Base
 {
-    public abstract class BaseClient
+    public abstract class BaseClient: IDisposable
     {
         protected readonly HttpClient _Client;
         protected readonly string _ServiceAddress;
@@ -58,5 +58,10 @@ namespace WebStore.Clients.Base
             return (await _Client.DeleteAsync(url, Cancel));
         }
         protected HttpResponseMessage Delete(string url) => _Client.DeleteAsync(url).Result;
+
+        public void Dispose()
+        {
+            _Client.Dispose();
+        }
     }
 }
