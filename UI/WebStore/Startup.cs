@@ -55,6 +55,15 @@ namespace WebStore
             //Регистрируем тестовое Web API
             services.AddTransient<IValuesService, ValuesClient>();
 
+            //IUserRoleStore<User>
+            //IUserClaimStore<User>
+            //IUserPasswordStore<User>
+            //IUserTwoFactorStore<User>
+            //IUserEmailStore<User>
+            //IUserPhoneNumberStore<User>
+            //IUserLoginStore<User>
+            //IUserLockoutStore<User>
+
             //Система идентификации пользователей
             //-----------------------------------------------------------------
 
