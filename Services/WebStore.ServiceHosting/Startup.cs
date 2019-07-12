@@ -71,7 +71,7 @@ namespace WebStore.ServiceHosting
             IHostingEnvironment env, 
             WebStoreContextInitializer db, ILoggerFactory log)
         {
-            //log.AddLog4Net();
+            log.AddLog4Net();
 
             db.InitializeAsync().Wait();
 
