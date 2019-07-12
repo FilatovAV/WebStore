@@ -18,10 +18,16 @@ namespace WebStore.Infrastructure.Middleware
             this._Logger = logger;
         }
 
+        /// <summary>
+        /// Предыдущим слоем программного обеспечения в конвейре промежуточного ПО будет вызван этот метод
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
             try
             {
+                //Если мы не вызовим данный метод то конвейр промежуточного ПО будет прерван на вызове данного метода
                 await _Next(context);
             }
             catch (Exception ex)
