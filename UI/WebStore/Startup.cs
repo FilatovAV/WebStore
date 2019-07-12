@@ -24,6 +24,11 @@ using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.interfaces.Api;
 using WebStore.Models;
+//-------------------------------------
+//Для использования log4net
+using Microsoft.Extensions.Logging;
+using WebStore.Logger;
+//-------------------------------------
 
 namespace WebStore
 {
@@ -158,9 +163,11 @@ namespace WebStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*, WebStoreContextInitializer db*/)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*, WebStoreContextInitializer db*/,
+            ILoggerFactory log)
         {
-            //db.InitializeAsync().Wait();
+
+            log.AddLog4Net();
 
             if (env.IsDevelopment())
             {

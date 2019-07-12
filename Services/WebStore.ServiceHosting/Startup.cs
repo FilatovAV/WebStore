@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using WebStore.Controllers.Implementations;
@@ -21,6 +20,11 @@ using WebStore.Data;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
+//-------------------------------------
+//Для использования log4net
+using Microsoft.Extensions.Logging;
+using WebStore.Logger;
+//-------------------------------------
 
 namespace WebStore.ServiceHosting
 {
@@ -63,8 +67,12 @@ namespace WebStore.ServiceHosting
         }
 
         //Прочие конфигурации приложения
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, WebStoreContextInitializer db)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            WebStoreContextInitializer db, ILoggerFactory log)
         {
+            //log.AddLog4Net();
+
             db.InitializeAsync().Wait();
 
             if (env.IsDevelopment())
