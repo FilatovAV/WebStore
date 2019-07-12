@@ -9,7 +9,14 @@ namespace WebStore.Controllers
     public class HomeController : Controller
     {
         //[ActionFilterAsync]
-        public IActionResult Index() => View();
+        //public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            //Тестирование логирования ошибок входящих запросов
+            //throw new ApplicationException("Тестовое исключение");
+            return View();
+        }
+
         public IActionResult Error404() => View();
         public IActionResult Blog() => View();
         public IActionResult BlogSingle() => View();

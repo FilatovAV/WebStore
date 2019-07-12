@@ -29,6 +29,7 @@ using WebStore.Models;
 using Microsoft.Extensions.Logging;
 using WebStore.Logger;
 //-------------------------------------
+using WebStore.Infrastructure.Middleware;
 
 namespace WebStore
 {
@@ -186,6 +187,9 @@ namespace WebStore
 
             //Можно задать маршрут по умолчанию
             //app.UseMvcWithDefaultRoute();
+
+            //Промежуточное ПО логирования
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             //Данная строчка должна быть заключительной в этом файле, все что после работать не будет
             app.UseMvc( route => {
