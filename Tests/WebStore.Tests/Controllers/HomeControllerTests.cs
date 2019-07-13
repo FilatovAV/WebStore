@@ -51,6 +51,13 @@ namespace WebStore.Tests.Controllers
             var result = _Controller.ContactUs();
             Assert.IsType<ViewResult>(result);
         }
-
+        [TestMethod]
+        public void ErrorStatusCode_404_Redirect_to_Error404()
+        {
+            var result = _Controller.ErrorStatusCode("404");
+            var redirect_to_action = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirect_to_action.ControllerName);
+            Assert.Equal(nameof(HomeController.Error404), redirect_to_action.ActionName);
+        }
     }
 }

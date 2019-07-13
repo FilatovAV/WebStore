@@ -24,5 +24,18 @@ namespace WebStore.Controllers
         //public IActionResult Checkout() => View();
         public IActionResult ContactUs() => View();
         //public IActionResult ProductDetails() => View();
+        public IActionResult ErrorStatusCode(string id)
+        {
+            switch (id)
+            {
+                case "404":
+                    return RedirectToAction(nameof(Error404));
+
+                default:
+                    return Content($"Ошибка в коде {id}");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
