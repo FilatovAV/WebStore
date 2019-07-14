@@ -61,7 +61,7 @@ namespace WebStore.Tests.Controllers
 
             //Вызов метода TransformCart
             //должен вернуть вью модель корзины CartViewModel
-            cart_service_mock.Setup(c => c.TransfomCart()).
+            cart_service_mock.Setup(c => c.TransformCart()).
                 Returns(() => new CartViewModel
                 { Items = new Dictionary<ProductViewModel, int>
                 {

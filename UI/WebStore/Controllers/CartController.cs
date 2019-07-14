@@ -24,7 +24,7 @@ namespace WebStore.Controllers
         {
             var model = new DetailsViewModel
             {
-                CartViewModel = _cartService.TransfomCart(),
+                CartViewModel = _cartService.TransformCart(),
                 OrderViewModel = new OrderViewModel()
             };
 
@@ -61,7 +61,7 @@ namespace WebStore.Controllers
             {
                 return View(nameof(Details), new DetailsViewModel()
                 {
-                    CartViewModel = _cartService.TransfomCart(),
+                    CartViewModel = _cartService.TransformCart(),
                     OrderViewModel = model
                 });
             }
@@ -69,7 +69,7 @@ namespace WebStore.Controllers
             var create_model = new CreateOrderModel
             {
                 OrderViewModel = model,
-                OrderItems = _cartService.TransfomCart().Items.Select(i => new OrderItemDTO
+                OrderItems = _cartService.TransformCart().Items.Select(i => new OrderItemDTO
                 {
                     Id = i.Key.Id,
                     Price = i.Key.Price,

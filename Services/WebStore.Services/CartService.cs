@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels.Cart;
 using WebStore.Domain.ViewModels.Product;
 using WebStore.Infrastructure.Interfaces;
@@ -78,10 +79,10 @@ namespace WebStore.Infrastructure.Implementations
             }
         }
 
-        public CartViewModel TransfomCart()
+        public CartViewModel TransformCart()
         {
             var products = _productData.GetProducts(new Domain.Entities.ProductFilter()
-            { ids = _cartStore.Cart.Items.Select(i=>i.ProductId).ToList<int>() });
+            { Ids = _cartStore.Cart.Items.Select(i=>i.ProductId).ToList<int>() });
             var products_view_models = products.Select(product => new ProductViewModel()
             {
                 Brand = product.Brand?.Name,
@@ -100,9 +101,29 @@ namespace WebStore.Infrastructure.Implementations
             return cart_view_model;
         }
 
-        CartViewModel ICartService.TransfomCart()
+        CartViewModel ICartService.TransformCart()
         {
-            throw new NotImplementedException();
+            var products = _productData.GetProducts(new ProductFilter
+            {
+                Ids = _cartStore.Cart.Items.Select(item => item.ProductId).ToList()
+            });
+
+            var products_view_models = products.Select(p => new ProductViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Order = p.Order,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl,
+                Brand = p.Brand?.Name
+            });
+
+            return new CartViewModel
+            {
+                Items = _cartStore.Cart.Items.ToDictionary(
+                    x => products_view_models.First(p => p.Id == x.ProductId),
+                    x => x.Quantity)
+            };
         }
     }
 }

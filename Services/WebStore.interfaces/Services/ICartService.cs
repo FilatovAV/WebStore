@@ -12,6 +12,6 @@ namespace WebStore.Infrastructure.Interfaces
         void RemoveFromCart(int id);
         void RemoveAll();
         void AddToCart(int id);
-        CartViewModel TransfomCart();
+        CartViewModel TransformCart();
     }
 }
