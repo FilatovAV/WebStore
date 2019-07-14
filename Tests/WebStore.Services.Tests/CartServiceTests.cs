@@ -65,10 +65,13 @@ namespace WebStore.Services.Tests
             Assert.Equal(expected_cout, result);
         }
 
+        /// <summary>
+        /// Тест. Добавление данных в корзину.
+        /// </summary>
         [TestMethod]
         public void CartService_AddToCart_WorkCorrect()
         {
-            //Создаем пустую карзину
+            //Создаем пустую корзину
             var cart = new Cart
             {
                 Items = new List<CartItem>()
@@ -76,7 +79,7 @@ namespace WebStore.Services.Tests
 
             //Создаем макет сервиса ProductData
             var product_data_mok = new Mock<IProductData>();
-            //Создаем макет сервиса хранилища данных карзины
+            //Создаем макет сервиса хранилища данных корзины
             var cart_store_mock = new Mock<ICartStore>();
             //Конфигурируем хранилище корзины
             cart_store_mock
@@ -98,6 +101,45 @@ namespace WebStore.Services.Tests
             Assert.Single(cart.Items);
             //product_id у нас ожидаемый?
             Assert.Equal(expected_id, cart.Items[0].ProductId);
+
+        }
+        /// <summary>
+        /// Тест. Удаление из корзины.
+        /// </summary>
+        [TestMethod]
+        public void CartService_RemoveFromCart_Remove_Correct_Item()
+        {
+            const int item_id = 1;
+            //Создаем пустую корзину
+            var cart = new Cart
+            {
+                //И положим в нее несколько товаров
+                Items = new List<CartItem>
+                {
+                    //Добавим запись с идентификатором который будем удалять
+                    new CartItem{ ProductId = item_id, Quantity = 1},
+                    //Добавим товар который должен остаться в корзине с отличающимся id и кол-вом
+                    new CartItem{ ProductId = 2, Quantity = 3}
+                }
+            };
+
+            //Создаем макет сервиса ProductData
+            var product_data_mok = new Mock<IProductData>();
+            //Создаем макет сервиса хранилища данных корзины
+            var cart_store_mock = new Mock<ICartStore>();
+            //Конфигурируем хранилище корзины
+            cart_store_mock
+                .Setup(c => c.Cart) //Обращение к свойству Cart
+                .Returns(cart);     //будет возвращать корзину определенную выше
+            //Создаем сервис корзины
+            var cart_service = new CartService(product_data_mok.Object, cart_store_mock.Object);
+            //Вызываем метод удаления из корзины
+            cart_service.RemoveFromCart(item_id);
+
+            //Проверка
+            //Проверяем что один из товаров был удален и остался тот что ожидалось
+            Assert.Equal(1, cart.Items.Count);
+            Assert.Equal(2, cart.Items[0].ProductId);
 
         }
     }

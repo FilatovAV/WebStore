@@ -30,6 +30,8 @@ using Microsoft.Extensions.Logging;
 using WebStore.Logger;
 //-------------------------------------
 using WebStore.Infrastructure.Middleware;
+using WebStore.interfaces.Services;
+using WebStore.Services;
 
 namespace WebStore
 {
@@ -55,6 +57,8 @@ namespace WebStore
             services.AddScoped<IProductData, ProductsClient>();
 
             services.AddScoped<ICartService, CartService>();
+            //Сервис хранения cookies для корзины
+            services.AddScoped<ICartStore, CookiesCartStore>();
 
             //services.AddScoped<IOrderService, SqlOrdersService>();
             services.AddScoped<IOrderService, OrdersClient>();
