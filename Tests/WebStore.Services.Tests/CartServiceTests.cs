@@ -1,9 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using WebStore.Domain.ViewModels.Cart;
 using WebStore.Domain.ViewModels.Product;
+using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.interfaces.Services;
 using WebStore.Models;
 
 //Asser как класс из пространства имен Xunit а не из MSTest
@@ -59,6 +63,42 @@ namespace WebStore.Services.Tests
             var result = cart_view_model.ItemsCount;
 
             Assert.Equal(expected_cout, result);
+        }
+
+        [TestMethod]
+        public void CartService_AddToCart_WorkCorrect()
+        {
+            //Создаем пустую карзину
+            var cart = new Cart
+            {
+                Items = new List<CartItem>()
+            };
+
+            //Создаем макет сервиса ProductData
+            var product_data_mok = new Mock<IProductData>();
+            //Создаем макет сервиса хранилища данных карзины
+            var cart_store_mock = new Mock<ICartStore>();
+            //Конфигурируем хранилище корзины
+            cart_store_mock
+                .Setup(c => c.Cart) //Обращение к свойству Cart
+                .Returns(cart);     //будет возвращать корзину определенную выше
+            //Создаем сервис корзины
+            var cart_service = new CartService(product_data_mok.Object, cart_store_mock.Object);
+            //Ожидаемый id
+            const int expected_id = 5;
+            //Обращаемся к сервису и просим его добавить в корзину товар с идентификатором expected_id
+            cart_service.AddToCart(expected_id);
+
+            //-------------------------------------------------------------------------------------------------
+            //Проверка
+
+            //В коризне находится 1 товар?
+            Assert.Equal(1, cart.ItemsCount);
+            //Кол-во записей в корзине 1?
+            Assert.Single(cart.Items);
+            //product_id у нас ожидаемый?
+            Assert.Equal(expected_id, cart.Items[0].ProductId);
+
         }
     }
 }

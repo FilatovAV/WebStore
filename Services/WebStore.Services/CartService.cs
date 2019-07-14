@@ -7,67 +7,25 @@ using System.Threading.Tasks;
 using WebStore.Domain.ViewModels.Cart;
 using WebStore.Domain.ViewModels.Product;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.interfaces.Services;
 using WebStore.Models;
 
 namespace WebStore.Infrastructure.Implementations
 {
-    public class CookieCartService : ICartService
+    public class CartService : ICartService
     {
         private readonly IProductData _productData;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly string _cartName; //название cookies в которой мы будем хранить данные карзины
-
-        private Cart Cart {
-            get
-            {
-                var http_context = _httpContextAccessor.HttpContext;
-                var cookie = http_context.Request.Cookies[_cartName];
-
-                Cart cart = null;
-                if (cookie is null)
-                {
-                    cart = new Cart();
-                    http_context.Response.Cookies.Append(
-                        _cartName,
-                        JsonConvert.SerializeObject(cart));
-                } else
-                {
-                    cart = JsonConvert.DeserializeObject<Cart>(cookie);
-                    http_context.Response.Cookies.Delete(_cartName);
-                    http_context.Response.Cookies.Append(_cartName, cookie, new CookieOptions
-                    {
-                        Expires = DateTime.Now.AddDays(1)
-                    });
-                }
-                return cart;
-            }
-            set
-            {
-                var http_context = _httpContextAccessor.HttpContext;
-
-                var json = JsonConvert.SerializeObject(value);
-
-                http_context.Response.Cookies.Delete(_cartName);
-                http_context.Response.Cookies.Append(_cartName, json, new CookieOptions
-                {
-                    Expires = DateTime.Now.AddDays(1)
-                });
-            }
-        }
+        private ICartStore _cartStore;
 
         //IHttpContextAccessor - специальный сервис который предоставляет доступ к контексту запроса
-        public CookieCartService(IProductData productData, IHttpContextAccessor httpContextAccessor)
+        public CartService(IProductData productData, ICartStore cartStore)
         {
             this._productData = productData;
-            this._httpContextAccessor = httpContextAccessor;
-
-            var user = _httpContextAccessor.HttpContext.User;
-
-            _cartName = $"cart{(user.Identity.IsAuthenticated ? user.Identity.Name : String.Empty)}";
+            this._cartStore = cartStore;
         }
         public void AddToCart(int id)
         {
-            var cart = Cart;
+            var cart = _cartStore.Cart;
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
 
             if (item != null)
@@ -78,12 +36,12 @@ namespace WebStore.Infrastructure.Implementations
                 cart.Items.Add(new CartItem() { ProductId = id, Quantity = 1 });
             }
 
-            Cart = cart;
+            _cartStore.Cart = cart;
         }
 
         public void DecrementFromCart(int id)
         {
-            var cart = Cart;
+            var cart = _cartStore.Cart;
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
 
             if (item != null)
@@ -97,33 +55,33 @@ namespace WebStore.Infrastructure.Implementations
                     cart.Items.Remove(item);
                 }
 
-                Cart = cart;
+                _cartStore.Cart = cart;
             }
         }
 
         public void RemoveAll()
         {
-            var cart = Cart;
+            var cart = _cartStore.Cart;
             cart.Items.Clear();
-            Cart = cart;
+            _cartStore.Cart = cart;
         }
 
         public void RemoveFromCart(int id)
         {
-            var cart = Cart;
+            var cart = _cartStore.Cart;
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
 
             if (item != null)
             {
                 cart.Items.Remove(item);
-                Cart = cart;
+                _cartStore.Cart = cart;
             }
         }
 
         public CartViewModel TransfomCart()
         {
             var products = _productData.GetProducts(new Domain.Entities.ProductFilter()
-            { ids = Cart.Items.Select(i=>i.ProductId).ToList<int>() });
+            { ids = _cartStore.Cart.Items.Select(i=>i.ProductId).ToList<int>() });
             var products_view_models = products.Select(product => new ProductViewModel()
             {
                 Brand = product.Brand?.Name,
@@ -135,7 +93,7 @@ namespace WebStore.Infrastructure.Implementations
             });
             var cart_view_model = new CartViewModel()
             {
-                Items = Cart.Items.ToDictionary(
+                Items = _cartStore.Cart.Items.ToDictionary(
                     x => products_view_models.First(f => f.Id == x.ProductId), 
                     x => x.Quantity)
             };

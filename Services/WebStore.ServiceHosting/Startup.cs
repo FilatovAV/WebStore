@@ -48,13 +48,13 @@ namespace WebStore.ServiceHosting
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
 
             services.AddScoped<IProductData, SqlProductData>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderService, SqlOrdersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CartService>();
 
             //Конфигурироем ПО для документации
             services.AddSwaggerGen(opt => 
