@@ -19,6 +19,7 @@ namespace WebStore.Infrastructure.Implementations
         private Cart Cart {
             get
             {
+
                 var http_context = _httpContextAccessor.HttpContext;
                 var cookie = http_context.Request.Cookies[_cartName];
 
