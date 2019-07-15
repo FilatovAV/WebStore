@@ -1,0 +1,43 @@
+﻿@model  IEnumerable<WebStore.Domain.DTO.Product.ProductDTO>
+@{
+    ViewData["Title"] = "Product list";
+}
+
+<p><a asp-action="Create" asp-area="Admin" class="btn btn-success">Create new</a>
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.Id)</td>
+            <td>@Html.DisplayNameFor(m => m.Name)</td>
+            <td>@Html.DisplayNameFor(m => m.Order)</td>
+            @*<td>@Html.DisplayNameFor(m => m.SectionId)</td>*@
+            @*<td>@Html.DisplayNameFor(m => m.BrandId)</td>*@
+            <td>@Html.DisplayNameFor(m => m.ImageUrl)</td>
+            <td>@Html.DisplayNameFor(m => m.Price)</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(m => item.Id)</td>
+            <td>@Html.DisplayFor(m => item.Name)</td>
+            <td>@Html.DisplayFor(m => item.Order)</td>
+            @*<td>@Html.DisplayFor(m => item.SectionId)</td>*@
+            @*<td>@Html.DisplayFor(m => item.BrandId)</td>*@
+            <td>@Html.DisplayFor(m => item.ImageUrl)</td>
+            <td>@Html.DisplayFor(m => item.Price)</td>
+            <td>
+                <a>Edit</a>|<a>Details</a>|<a class="text-danger">Delete</a>
+                @*@Html.ActionLink("Edit", "Edit", new { area = "Admin", id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { area = "Admin", id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { area = "Admin", id = item.Id })*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
